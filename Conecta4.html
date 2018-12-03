@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Conecta 4</title>
+    <meta charset="UTF-8" />
+    <style>
+        td {
+            border-radius: 100px;
+            background-color: white;
+        }
+        table {
+            background-color: blue;
+            padding: 10px;
+        }
+        #blanco {
+            background-color: white;
+        }
+         </style>
+    <script>
+        var mapa = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        var jugador = 1;
+
+        function dibujar() {
+            for (i = 0; i <= 41; i++) {
+                if (mapa[i] == 0) document.getElementById("c" + i).style = "background-color: white";
+                if (mapa[i] == 1) document.getElementById("c" + i).style = "background-color: red";
+                if (mapa[i] == 2) document.getElementById("c" + i).style = "background-color: yellow";
+            }
+        }
+
+        function pcelda(celda) {
+            if (mapa[celda] == 0) {
+                if (jugador == 1) {
+                    for (i = celda + 35; i >= 0; i = i - 7) {
+                        if (mapa[i] == 0) {
+                            mapa[i] = 1;
+                            i = 0;
+                        }
+                    }
+                    jugador = 2;
+                } else {
+                    for (i = celda + 35; i >= 0; i = i - 7) {
+                        if (mapa[i] == 0) {
+                            mapa[i] = 2;
+                            i = 0;
+                        }
+                    }
+                    jugador = 1;
+                }
+            } else {
+                window.alert("No puedes pulsar sobre una celda coloreada");
+            }
+            dibujar();
+            var r = ganador();
+            switch (r) {
+                case 0:
+                    break;
+                case 1:
+                    setTimeout(function(){ alert("¡Ganó el rojo!"); }, 10);
+                    break;
+                case 2:
+                    setTimeout(function(){ alert("¡Ganó el amarillo!"); }, 10);
+                    break;
+                case 3:
+                    setTimeout(function(){ alert("¡Empate!"); }, 10);
+                    break;
+            }
+        }
+
+        function ganador() {
+            var ganador = 0;
+
+            // Las líneas horizontales
+            for (i = 39; i >= 3; i--) {
+                if (i % 7 < 4 && mapa[i] > 0) {
+                    if (mapa[i] == mapa[i + 1] && mapa[i + 1] == mapa[i + 2] && mapa[i + 2] == mapa[i + 3]) {
+                        return mapa[i];                        
+                    }
+                }
+            }
+            
+            // Las lineas verticales
+            for (i = 41; i >= 21; i--) {
+                if (mapa[i] > 0) {
+                    if (mapa[i] == mapa[i - 7] && mapa[i - 7] == mapa[i - 14] && mapa[i - 14] == mapa[i - 21]) {
+                        return mapa[i];
+                    }
+                }
+            }
+
+            //Las diagonales            
+            for (i = 41; i >= 0; i--) {
+                if (i % 7 > 4 && mapa[i] > 0) {
+                    if (mapa[i] == mapa[i - 8] && mapa[i - 8] == mapa[i - 16] && mapa[i - 16] == mapa[i - 24]) {
+                        return mapa[i];
+                    }
+                }
+            }
+            
+            for (i = 0; i <= 41; i++) {
+                if (i % 7 < 4 && mapa[i] > 0) {
+                    if (mapa[i] == mapa[i - 6] && mapa[i - 6] == mapa[i - 12] && mapa[i - 12] == mapa[i - 18]) {
+                        return mapa[i];
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+      <table id="blanco" align="center" border="0">
+        <tr>
+            <td width="300" align="center"><br />
+               <h2>CONECTA 4</h2> 
+            </td>
+        </tr>
+    </table>
+   
+
+    <table align="center" border="1">
+<tr>
+            <td width="85" height="85" id="c0" onclick="pcelda(0)"></td>
+            <td width="85" height="85" id="c1" onclick="pcelda(1)"></td>
+            <td width="85" height="85" id="c2" onclick="pcelda(2)"></td>
+            <td width="85" height="85" id="c3" onclick="pcelda(3)"></td>
+            <td width="85" height="85" id="c4" onclick="pcelda(4)"></td>
+            <td width="85" height="85" id="c5" onclick="pcelda(5)"></td>
+            <td width="85" height="85" id="c6" onclick="pcelda(6)"></td>
+        </tr>
+        <tr>
+            <td width="85" height="85" id="c7" onclick="pcelda(7)"></td>
+            <td width="85" height="85" id="c8" onclick="pcelda(8)"></td>
+            <td width="85" height="85" id="c9" onclick="pcelda(9)"></td>
+            <td width="85" height="85" id="c10" onclick="pcelda(10)"></td>
+            <td width="85" height="85" id="c11" onclick="pcelda(11)"></td>
+            <td width="85" height="85" id="c12" onclick="pcelda(12)"></td>
+            <td width="85" height="85" id="c13" onclick="pcelda(13)"></td>
+        </tr>
+        <tr>
+            <td width="85" height="85" id="c14" onclick="pcelda(14)"></td>
+            <td width="85" height="85" id="c15" onclick="pcelda(15)"></td>
+            <td width="85" height="85" id="c16" onclick="pcelda(16)"></td>
+            <td width="85" height="85" id="c17" onclick="pcelda(17)"></td>
+            <td width="85" height="85" id="c18" onclick="pcelda(18)"></td>
+            <td width="85" height="85" id="c19" onclick="pcelda(19)"></td>
+            <td width="85" height="85" id="c20" onclick="pcelda(20)"></td>
+        </tr>
+        <tr>
+            <td width="85" height="85" id="c21" onclick="pcelda(21)"></td>
+            <td width="85" height="85" id="c22" onclick="pcelda(22)"></td>
+            <td width="85" height="85" id="c23" onclick="pcelda(23)"></td>
+            <td width="85" height="85" id="c24" onclick="pcelda(24)"></td>
+            <td width="85" height="85" id="c25" onclick="pcelda(25)"></td>
+            <td width="85" height="85" id="c26" onclick="pcelda(26)"></td>
+            <td width="85" height="85" id="c27" onclick="pcelda(27)"></td>
+        </tr>
+        <tr>
+            <td width="85" height="85" id="c28" onclick="pcelda(28)"></td>
+            <td width="85" height="85" id="c29" onclick="pcelda(29)"></td>
+            <td width="85" height="85" id="c30" onclick="pcelda(30)"></td>
+            <td width="85" height="85" id="c31" onclick="pcelda(31)"></td>
+            <td width="85" height="85" id="c32" onclick="pcelda(32)"></td>
+            <td width="85" height="85" id="c33" onclick="pcelda(33)"></td>
+            <td width="85" height="85" id="c34" onclick="pcelda(34)"></td>
+        </tr>
+        <tr>
+            <td width="85" height="85" id="c35" onclick="pcelda(35)"></td>
+            <td width="85" height="85" id="c36" onclick="pcelda(36)"></td>
+            <td width="85" height="85" id="c37" onclick="pcelda(37)"></td>
+            <td width="85" height="85" id="c38" onclick="pcelda(38)"></td>
+            <td width="85" height="85" id="c39" onclick="pcelda(39)"></td>
+            <td width="85" height="85" id="c40" onclick="pcelda(40)"></td>
+            <td width="85" height="85" id="c41" onclick="pcelda(41)"></td>
+        </tr>
+    </table>
+    <table id="blanco" align="center" border="0">
+        <tr>
+            <td width="300" align="center"><br />
+                <a href="javascript:location.reload()">
+                    <button>Reiniciar</button></a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
